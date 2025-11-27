@@ -1,0 +1,80 @@
+
+<%- include('./partiasl/header')%>
+
+
+<div class="main-content">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4>Product List</h4>
+          <div class="card-header-action">
+            <form>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search">
+                <div class="input-group-btn">
+                  <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-striped" id="sortable-table">
+              <thead>
+                <tr>
+                  <th class="text-center">
+                    <i class="fas fa-th"></i>
+                  </th>
+                  <th>Product Name</th>
+                  <th>Product Price</th>
+                  <th>Product Images</th>
+                  <th>Upload Date</th>
+                  <th>Update</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <% if(product.length > 0) { %>
+                <% product.forEach((product) => { %>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="sort-handler">
+                          <i class="fas fa-th"></i>
+                        </div>
+                      </td>
+                      <td><%= product.name %></td>
+                      <td>only <%= product.price %></td>
+                      <td>
+                        <img alt="image" src="<%= process.env.IMAGE_URL %>/images/uploads/<%= product.images %>" class="rounded-circle" width="35"
+                          data-toggle="tooltip" title="Wildan Ahdian">
+                      </td>
+                      <td><%= new Date(product.Date).toISOString().split('T')[0] %></td>
+                      <td>
+                        <a href="/admin/edit/<%= product._id %>" class="btn btn-primary">Edit</a>
+                      </td>
+                      <td>
+                        <a href="/admin/delete/<%= product._id %>" class="btn btn-danger">Delete</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                <% }) %>
+              <% } else { %>
+               <tbody>
+                <tr>
+                  <td><h3>No Poroduct Available</h3></td>
+                </tr>
+               </tbody>
+                <% } %>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<%- include('./partiasl/footer')%>
